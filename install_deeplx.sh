@@ -20,7 +20,7 @@ chmod +x /usr/home/$(whoami)/$PROJECT_NAME/set_env_vars.sh
 cd "$USER_HOME"
 
 # 创建 deeplx 目录
-mkdir -p "$USER_HOME/deeplx"
+mkdir -p "$USER_HOME/$PROJECT_NAME"
 
 # 获取最新版本的 DeepLX
 last_version=$(curl -Ls "https://api.github.com/repos/OwO-Network/DeepLX/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
@@ -64,16 +64,6 @@ else
     fi
 fi
 
-# 正则表达式检查域名格式
-function validate_domain() {
-    local domain=$1
-    if [[ $domain =~ ^[a-zA-Z0-9][-a-zA-Z0-9]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$ ]]; then
-        return 0  # 合法
-    else
-        return 1  # 不合法
-    fi
-}
-
 # 绑定网站部分
 echo "现需要绑定网站并指向 $DEEPLX_PORT"
 echo "警告：这将会重置选择的这个网站（删除网站所有内容）！"
@@ -106,12 +96,6 @@ if [[ "$user_input" == "yes" ]]; then
 
 elif [[ "$user_input" != "no" ]]; then
     custom_domain="$user_input"
-
-    # 检查域名格式
-    if ! validate_domain "$custom_domain"; then
-        echo "无效的域名格式，请检查并重新输入。"
-        exit 1
-    fi
 
     # 删除旧域名，无论删除是否成功，都会继续新增域名
     DELETE_OUTPUT=$(devil www del "$custom_domain")
