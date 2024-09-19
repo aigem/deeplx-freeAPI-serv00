@@ -84,7 +84,6 @@ print_warning "现需要绑定网站并指向 $DEEPLX_PORT"
 read -p "输入 'yes' 来重置网站 ($(whoami).serv00.net)，或输入自定义域名，或输入 'no' 退出: " user_input
 
 if [[ "$user_input" == "yes" ]]; then
-    fi
     print_success "开始重置网站..."
     DELETE_OUTPUT=$(devil www del "$(whoami).serv00.net")
     ADD_OUTPUT=$(devil www add "$(whoami).serv00.net" proxy localhost "$DEEPLX_PORT")
@@ -132,12 +131,13 @@ fi
 
 # 保存 PM2 状态并配置重启自启
 pm2 save
-PM2_PATH=$(which pm2 | tr -d '\n')
-crontab -l | grep -v '@reboot.*pm2 resurrect' | crontab -
-(crontab -l 2>/dev/null; echo "@reboot $PM2_PATH resurrect") | crontab -
-(crontab -l 2>/dev/null; echo "@reboot /usr/home/$(whoami)/$PROJECT_NAME/set_env_vars.sh") | crontab -
+PM2_PATH=$(which pm2)
+# 清除所有与 pm2 相关的 @reboot 任务
+crontab -l | grep -v '@reboot.*pm2' | crontab - 
+(crontab -l 2>/dev/null; echo "@reboot $PM2_PATH resurrect"; echo "@reboot /usr/home/$(whoami)/$PROJECT_NAME/set_env_vars.sh") | crontab -
 
 if [[ -f "$USER_HOME/domains/$OK_SITE/public_html/index.html" ]]; then
     rm "$USER_HOME/domains/$OK_SITE/public_html/index.html"
+fi
 
 print_success "DeepLX 安装完成，服务已启动，查看网站: $OK_SITE"
