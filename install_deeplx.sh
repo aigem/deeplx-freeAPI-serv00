@@ -62,6 +62,7 @@ else
         echo "端口号不在有效范围内 (1024-65535)。"
         exit 1
     fi
+    echo "选定端口为: $user_input"
 fi
 
 # 绑定网站部分
@@ -71,7 +72,7 @@ echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-="
 read -p "请输入 'yes' 来重置网站 ($(whoami).serv00.net)，或输入你自己的域名（需要A记录解析到你的IP）或输入 'no' 来退出自动设置：" user_input
 
 if [[ "$user_input" == "yes" ]]; then
-    if [ -f "$USER_HOME/domains/$(whoami).serv00.net/public_html/index.html" ]; then
+    if [[ -f "$USER_HOME/domains/$(whoami).serv00.net/public_html/index.html" ]]; then
         rm "$USER_HOME/domains/$(whoami).serv00.net/public_html/index.html"
     fi
     echo "开始重置网站..."
@@ -79,7 +80,7 @@ if [[ "$user_input" == "yes" ]]; then
     # 删除旧域名，无论删除是否成功，都会继续新增域名
     DELETE_OUTPUT=$(devil www del "$(whoami).serv00.net")
 
-    if echo "$DELETE_OUTPUT" | grep -q "Domain deleted"; then
+    if [[ echo "$DELETE_OUTPUT" | grep -q "Domain deleted" ]]; then
         echo "旧网站 $(whoami).serv00.net 删除成功。"
     else
         echo "旧网站 $(whoami).serv00.net 删除失败，继续创建新网站。"
@@ -88,7 +89,7 @@ if [[ "$user_input" == "yes" ]]; then
     # 新增网站
     ADD_OUTPUT=$(devil www add "$(whoami).serv00.net" proxy localhost "$DEEPLX_PORT")
 
-    if echo "$ADD_OUTPUT" | grep -q "Domain added succesfully"; then
+    if [[ echo "$ADD_OUTPUT" | grep -q "Domain added succesfully" ]]; then
         echo "网站成功重置并指向端口，网址为：$(whoami).serv00.net。"
     else
         echo "新建网站失败，请之后检查。不影响安装。"
@@ -100,7 +101,7 @@ elif [[ "$user_input" != "no" ]]; then
     # 删除旧域名，无论删除是否成功，都会继续新增域名
     DELETE_OUTPUT=$(devil www del "$custom_domain")
 
-    if echo "$DELETE_OUTPUT" | grep -q "Domain deleted"; then
+    if [[ echo "$DELETE_OUTPUT" | grep -q "Domain deleted" ]]; then
         echo "旧域名 $custom_domain 删除成功。"
     else
         echo "旧域名 $custom_domain 删除失败，继续创建新网站。"
@@ -109,13 +110,13 @@ elif [[ "$user_input" != "no" ]]; then
     # 新增网站
     ADD_OUTPUT=$(devil www add "$custom_domain" proxy localhost "$DEEPLX_PORT")
 
-    if echo "$ADD_OUTPUT" | grep -q "Domain added succesfully"; then
+    if [[ echo "$ADD_OUTPUT" | grep -q "Domain added succesfully"]]; then
         echo "网站 $custom_domain 成功绑定。"
     else
         echo "新建网站失败，请之后检查。不影响安装。"
     fi
     
-    if [ -f "$USER_HOME/domains/$custom_domain/public_html/index.html" ]; then
+    if [[ -f "$USER_HOME/domains/$custom_domain/public_html/index.html" ]]; then
         rm "$USER_HOME/domains/$custom_domain/public_html/index.html"
     fi
 
