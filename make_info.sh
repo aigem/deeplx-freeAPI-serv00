@@ -7,7 +7,7 @@ USER_HOME="/usr/home/$(whoami)"
 BASH_PROFILE="$USER_HOME/.bash_profile"
 
 # 生成 info文件
-INFO_FILE="/usr/home/$(whoami)/$GITHUB_REPO_NAME/info.html"
+INFO_FILE="/usr/home/$(whoami)/$PROJECT_NAME/info.html"
 
 cat <<EOF > "$INFO_FILE"
 <!DOCTYPE html>
