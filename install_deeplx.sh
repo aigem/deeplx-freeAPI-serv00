@@ -46,10 +46,11 @@ mkdir -p "$USER_HOME/$PROJECT_NAME"
 last_version=$(curl -Ls "https://api.github.com/repos/OwO-Network/DeepLX/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
 if [ -z "$last_version" ]; then
     print_error "无法获取 DeepLX 最新版本。"
-    exit 1
+    last_version="v0.9.7"
+    print_error "使用默认版本进行安装。"
 fi
 
-print_success "DeepLX 最新版本: $last_version，开始安装..."
+print_success "DeepLX 安装版本: $last_version，开始安装..."
 
 # 下载并赋予执行权限
 fetch -o "$USER_HOME/deeplx/deeplx" "https://github.com/OwO-Network/DeepLX/releases/download/${last_version}/deeplx_freebsd_amd64"
