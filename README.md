@@ -2,6 +2,8 @@
 
 本指南介绍如何在 FreeBSD (Serv00) 环境中使用 `pm2` 部署 [DeepLX](https://deeplx.owo.network)，并详细说明脚本的运行步骤。DeepLX 是一个开源的翻译服务，兼容 DeepL API，允许用户在本地化环境中部署翻译服务。
 
+[视频教程](https://www.bilibili.com/video/BV1e9bceoECw/)
+
 ## 项目简介
 
 DeepLX 是一个由 [OwO Network](https://deeplx.owo.network) 提供的 API 服务，能够模拟 DeepL 官方 API 进行翻译请求。用户可以选择开源的免费版本部署到本地，享受无限制的翻译请求服务。常见功能包括：
@@ -57,6 +59,8 @@ chmod +x install_deeplx.sh
 - **安装并启动 pm2**：使用 `npm` 安装 `pm2`，并通过 `pm2` 管理 DeepLX 服务，保证在系统重启后自动启动。
 
 ## 使用说明
+
+[视频教程](https://www.bilibili.com/video/BV1e9bceoECw/)
 
 ### 命令行参数
 DeepLX 支持多种命令行参数，具体说明请参考 [DeepLX 变量文档](https://deeplx.owo.network/install/variables.html)【24†source】【25†source】。
