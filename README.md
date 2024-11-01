@@ -2,7 +2,7 @@
 
 本指南介绍如何在 FreeBSD (Serv00) 环境中使用 `pm2` 部署 [DeepLX](https://deeplx.owo.network)，并详细说明脚本的运行步骤。DeepLX 是一个开源的翻译服务，兼容 DeepL API，允许用户在本地化环境中部署翻译服务。
 
-[视频教程](https://www.bilibili.com/video/BV1e9bceoECw/)
+【 [视频教程](https://www.bilibili.com/video/BV1e9bceoECw/) 】
 
 ## 项目简介
 
